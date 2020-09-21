@@ -3,7 +3,6 @@ from random import randint
 
 playerSymbol = "X"
 computerSymbol = "O"
-gameBoard = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
 
 
 # check if the spot is free
@@ -15,15 +14,15 @@ def checkFree(x, board):
 
 
 # check if any side wins the game
-def checkWin(s, bo):
-    return (bo[0] == s and bo[1] == s and bo[2] == s) \
-           or (bo[3] == s and bo[4] == s and bo[5] == s) \
-           or (bo[6] == s and bo[7] == s and bo[8] == s) \
-           or (bo[0] == s and bo[3] == s and bo[6] == s) \
-           or (bo[1] == s and bo[4] == s and bo[7] == s) \
-           or (bo[2] == s and bo[5] == s and bo[8] == s) \
-           or (bo[0] == s and bo[4] == s and bo[8] == s) \
-           or (bo[2] == s and bo[4] == s and bo[6] == s)
+def checkWin(s, board):
+    return (board[0] == s and board[1] == s and board[2] == s) \
+           or (board[3] == s and board[4] == s and board[5] == s) \
+           or (board[6] == s and board[7] == s and board[8] == s) \
+           or (board[0] == s and board[3] == s and board[6] == s) \
+           or (board[1] == s and board[4] == s and board[7] == s) \
+           or (board[2] == s and board[5] == s and board[8] == s) \
+           or (board[0] == s and board[4] == s and board[8] == s) \
+           or (board[2] == s and board[4] == s and board[6] == s)
 
 
 # make a copy of the board
@@ -75,12 +74,6 @@ def getComputerMove(board, step):
 # player's move
 def move(x, board, sym):
     board[x] = sym
-
-
-# reset the game
-def reset_board():
-    global gameBoard
-    gameBoard = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
 
 
 # print the board in the format

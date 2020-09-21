@@ -1,11 +1,11 @@
 from tkinter import *
 import tkinter.messagebox
 import Main
-from Main import gameBoard
 from Main import playerSymbol
 from Main import computerSymbol
 
 step = 0
+gameBoard = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 
 
 # click computer's move
@@ -38,11 +38,25 @@ def btnClick(x):
         tkinter.messagebox.showinfo("Tic-Tac-Toe", "Button already Clicked!")
 
 
+# reset the game
+def reset_game():
+    global step
+    global gameBoard
+    for i in range(9):
+        dict_b[i]["text"] = ' '
+    step = 0
+    gameBoard = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+    Main.printBoard(gameBoard)
+
+
 tk = Tk()
 tk.title("Tic Tac Toe")
 
 buttons = StringVar()
 
+button_reset = Button(tk, text='reset', font='Times 20 bold', bg='gray', fg='white', height=1, width=8,
+                      command=lambda: reset_game())
+button_reset.grid(row=0, column=0)
 
 button1 = Button(tk, text=gameBoard[0], font='Times 20 bold', bg='gray', fg='white', height=4, width=8,
                  command=lambda: btnClick(0))
