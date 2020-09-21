@@ -46,7 +46,6 @@ def reset_game():
         dict_b[i]["text"] = ' '
     step = 0
     gameBoard = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
-    Main.printBoard(gameBoard)
 
 
 tk = Tk()
