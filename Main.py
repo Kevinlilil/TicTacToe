@@ -1,9 +1,11 @@
 from random import randint
 
+
 playerSymbol = "X"
 computerSymbol = "O"
 gameWin = False
-
+step = 0
+gameBoard = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
 
 # Determine player and symbol
 def getPlayer():
@@ -100,12 +102,12 @@ def printBoard(board):
 def move(x, board, sym):
     board[x] = sym
 
+print(getComputerMove(gameBoard))
 
-# gameBoard = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
 # getPlayer()
 #
 # gameEnd = False
-# step = 0
+
 #
 # while not gameEnd:
 #     printBoard(gameBoard)
