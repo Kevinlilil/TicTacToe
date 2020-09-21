@@ -39,7 +39,21 @@ def getRandomMove(board):
     for i in range(9):
         if checkFree(i, board):
             remainSpots.append(i)
-    return remainSpots[(randint(0, len(remainSpots) - 1))]
+    return remainSpots[randint(0, len(remainSpots) - 1)]
+
+
+# in case the player use certain strategy
+def anti_strategy(board):
+    # take the side if the player has two opposite connors
+    if (board[0] == playerSymbol and board[8] == playerSymbol) or (board[2] == playerSymbol and board[6] == playerSymbol):
+        checklist = [1, 3, 5, 7]
+        freelist = []
+        for i in range(4):
+            if checkFree(i, board):
+                freelist.append(checklist[i])
+        return freelist[randint(0, len(freelist) - 1)]
+    else:
+        return 0
 
 
 # get the index of computer's move
@@ -61,12 +75,15 @@ def getComputerMove(board, step):
                 return i
             else:
                 copyPlayer[i] = board[i]
-
+    # take the center first
     if checkFree(4, board):
         return 4
+    # take the connors if the center is taken
     elif board[4] == playerSymbol and step == 1:
         values = [0, 2, 6, 8]
         return values[randint(0, 3)]
+    elif anti_strategy(board) != 0:
+        return anti_strategy(board)
     else:
         return getRandomMove(board)
 
