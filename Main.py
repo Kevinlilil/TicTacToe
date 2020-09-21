@@ -3,25 +3,7 @@ from random import randint
 
 playerSymbol = "X"
 computerSymbol = "O"
-gameWin = False
-step = 0
 gameBoard = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
-
-# Determine player and symbol
-def getPlayer():
-    global playerSymbol
-    global computerSymbol
-    print("Do you want to be 'X' or 'O'")
-    ip = input()
-    if ip == "O":
-        playerSymbol = "O"
-        computerSymbol = "X"
-        return
-    elif ip != "X" and ip != "O":
-        print("Try again")
-        getPlayer()
-    else:
-        return
 
 
 # check if the spot is free
@@ -62,8 +44,7 @@ def getRandomMove(board):
 
 
 # get the index of computer's move
-def getComputerMove(board):
-    global step
+def getComputerMove(board, step):
     copyComputer = getCopy(board)
     for j in range(9):
         if checkFree(j, copyComputer):
@@ -91,42 +72,20 @@ def getComputerMove(board):
         return getRandomMove(board)
 
 
+# player's move
+def move(x, board, sym):
+    board[x] = sym
+
+
+# reset the game
+def reset_board():
+    global gameBoard
+    gameBoard = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+
+
 # print the board in the format
 def printBoard(board):
     for i in range(3):
         print("|" + board[0 + 3 * i] + "|" + board[1 + 3 * i] + "|" + board[2 + 3 * i] + "|"
               + "          |" + str(0 + 3 * i) + "|" + str(1 + 3 * i) + "|" + str(2 + 3 * i) + "|")
 
-
-# player's move
-def move(x, board, sym):
-    board[x] = sym
-
-print(getComputerMove(gameBoard))
-
-# getPlayer()
-#
-# gameEnd = False
-
-#
-# while not gameEnd:
-#     printBoard(gameBoard)
-#     print("player's turn:")
-#
-#     indexPlayer = int(input("number between 0-8: "))
-#     while indexPlayer > 8 or not checkFree(indexPlayer, gameBoard):
-#         indexPlayer = int(input("out of range, try again: "))
-#
-#     move(indexPlayer, gameBoard, playerSymbol)
-#     step += 1
-#
-#     if step >= 9 or checkWin(playerSymbol, gameBoard):
-#         break
-#     print("computer's turn:")
-#     move(getComputerMove(gameBoard), gameBoard, computerSymbol)
-#     step += 1
-#     if checkWin(computerSymbol, gameBoard):
-#         break
-#
-# printBoard(gameBoard)
-# print("game over")

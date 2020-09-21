@@ -1,23 +1,38 @@
 from tkinter import *
 import tkinter.messagebox
 import Main
-from Main import step
 from Main import gameBoard
+from Main import playerSymbol
+from Main import computerSymbol
 
-playerSymbol = "X"
-computerSymbol = "O"
+step = 0
 
 
+# click computer's move
 def computerClick():
-    move = Main.getComputerMove(gameBoard)
+    global step
+    if Main.checkWin(playerSymbol, gameBoard):
+        tkinter.messagebox.showinfo("Tic-Tac-Toe", "You win!")
+        return
+    if step == 9:
+        tkinter.messagebox.showinfo("Tic-Tac-Toe", "Draw")
+        return
+    move = Main.getComputerMove(gameBoard, step)
     gameBoard[move] = computerSymbol
-    print(move)
     dict_b[move]["text"] = "O"
+    step += 1
 
+
+# player's click
 def btnClick(x):
+    global step
+    if Main.checkWin(computerSymbol, gameBoard):
+        tkinter.messagebox.showinfo("Tic-Tac-Toe", "Computer wins!")
+        return
     if dict_b[x]["text"] == " ":
         dict_b[x]["text"] = playerSymbol
         gameBoard[x] = 'X'
+        step += 1
         computerClick()
     else:
         tkinter.messagebox.showinfo("Tic-Tac-Toe", "Button already Clicked!")
@@ -28,8 +43,6 @@ tk.title("Tic Tac Toe")
 
 buttons = StringVar()
 
-# button_confirm = Button(tk, text='确定', font='Times 20 bold', bg='gray', fg='white', height=1, width=5,)
-# button_confirm.grid(row=0, column=0)
 
 button1 = Button(tk, text=gameBoard[0], font='Times 20 bold', bg='gray', fg='white', height=4, width=8,
                  command=lambda: btnClick(0))
@@ -68,6 +81,7 @@ button9 = Button(tk, text=gameBoard[8], font='Times 20 bold', bg='gray', fg='whi
 button9.grid(row=5, column=2)
 
 
+# dictionary to refer buttons
 dict_b = {0: button1, 1: button2, 2: button3, 3: button4, 4: button5, 5: button6, 6: button7, 7: button8, 8: button9}
 
 if __name__ == '__main__':
