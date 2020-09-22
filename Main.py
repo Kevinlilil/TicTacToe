@@ -33,7 +33,15 @@ def getCopy(board):
     return boardCopy
 
 
-# get a random move for computer
+def count(board):
+    count = 0
+    for i in board:
+        if i != ' ':
+            count += 1
+    return count
+
+
+# get a random move for computer check ahead (j) for possible winning situation
 def getRandomMove(board):
     remainSpots = []
     for i in range(9):
@@ -42,15 +50,25 @@ def getRandomMove(board):
     return remainSpots[randint(0, len(remainSpots) - 1)]
 
 
-# in case the player use certain strategy
-def anti_strategy(board):
+# other instructions
+def other(board):
     # take the side if the player has two opposite connors
-    if (board[0] == playerSymbol and board[8] == playerSymbol) or (board[2] == playerSymbol and board[6] == playerSymbol):
+    if board[4] == computerSymbol and count(board) < 6:
+        print('here')
         checklist = [1, 3, 5, 7]
         freelist = []
-        for i in range(4):
+        # prevent the strategy that place one on connor and one in the opposite middle
+        if board[1] == playerSymbol:
+            checklist.remove(7)
+        if board[7] == playerSymbol:
+            checklist.remove(1)
+        if board[3] == playerSymbol:
+            checklist.remove(5)
+        if board[5] == playerSymbol:
+            checklist.remove(3)
+        for i in checklist:
             if checkFree(i, board):
-                freelist.append(checklist[i])
+                freelist.append(i)
         return freelist[randint(0, len(freelist) - 1)]
     else:
         return 0
@@ -82,8 +100,8 @@ def getComputerMove(board, step):
     elif board[4] == playerSymbol and step == 1:
         values = [0, 2, 6, 8]
         return values[randint(0, 3)]
-    elif anti_strategy(board) != 0:
-        return anti_strategy(board)
+    elif other(board) != 0:
+        return other(board)
     else:
         return getRandomMove(board)
 
