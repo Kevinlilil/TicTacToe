@@ -45,7 +45,7 @@ def getRandomMove(board):
 # in case the player use certain strategy
 def anti_strategy(board):
     # take the side if the player has two opposite connors
-    if (board[0] == playerSymbol and board[8] == playerSymbol) or (board[2] == playerSymbol and board[6] == playerSymbol):
+    if board[0] == playerSymbol or board[8] == playerSymbol or board[2] == playerSymbol and board[6] == playerSymbol:
         checklist = [1, 3, 5, 7]
         freelist = []
         for i in range(4):
