@@ -1,8 +1,8 @@
 from tkinter import *
 import tkinter.messagebox
-import Main
-from Main import playerSymbol
-from Main import computerSymbol
+import Minimax
+from Minimax import playerSymbol
+from Minimax import computerSymbol
 
 step = 0
 gameBoard = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
@@ -11,13 +11,13 @@ gameBoard = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 # click computer's move
 def computerClick():
     global step
-    if Main.checkWin(playerSymbol, gameBoard):
+    if Minimax.checkWin(playerSymbol, gameBoard):
         tkinter.messagebox.showinfo("Tic-Tac-Toe", "You win!")
         return
     if step == 9:
         tkinter.messagebox.showinfo("Tic-Tac-Toe", "Draw")
         return
-    move = Main.getComputerMove(gameBoard, step)
+    move = Minimax.findMove(gameBoard)
     gameBoard[move] = computerSymbol
     dict_b[move]["text"] = "O"
     step += 1
@@ -26,7 +26,7 @@ def computerClick():
 # player's click
 def btnClick(x):
     global step
-    if Main.checkWin(computerSymbol, gameBoard):
+    if Minimax.checkWin(computerSymbol, gameBoard):
         tkinter.messagebox.showinfo("Tic-Tac-Toe", "Computer wins!")
         return
     if dict_b[x]["text"] == " ":
